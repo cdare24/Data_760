@@ -1,0 +1,75 @@
+---
+title: "making_data_KS"
+output: html_document
+date: "2025-07-17"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+data <- read.csv("uswtdb_V8_1_20250522.csv")
+library(dplyr)
+library(tidyverse)
+library(tidyr)
+```
+
+
+```{r cars}
+
+ks_data <- data |> filter(t_state == 'KS')
+```
+```{r}
+write.csv(ks_data, 'KS_DATA.csv')
+```
+```{r}
+data1 <- read.csv("uspvdb_v3_0_20250430.csv")
+ks_data_solar <- data1 |> filter (p_state == "KS")
+```
+
+
+```{r}
+data2 <- read.csv('fuel_stations_kansas.csv')
+stations_kansas <- data2 |> select(c(Fuel.Type.Code, 
+                                     Station.Name,
+                                     Street.Address,
+                                     Intersection.Directions,
+                                     City,
+                                     State,
+                                     ZIP,
+                                     Station.Phone,
+                                     Groups.With.Access.Code,
+                                     Latitude,
+                                     Longitude,
+                                     ID,
+                                     Open.Date,
+                                     Access.Code))
+write.csv(stations_kansas, "stations_ks.csv")
+```
+
+
+```{r}
+
+```
+
+
+```{r}
+data3 <- read.csv('kansas_pop_county.csv')
+vec = c(20001, 20003, 20005, 20007, 20009, 20011, 20013, 20015, 20017, 20019, 20021, 20023, 20025, 20027, 20029, 20031, 20033, 20035, 20037, 20039, 20041, 20043, 20045, 20047, 20049, 20051, 20053, 20055, 20057, 20059, 20061, 20063, 20065, 20067, 20069, 20071, 20073, 20075, 20077, 20079, 20081, 20083, 20085, 20087, 20089, 20091, 20093, 20095, 20097, 20099, 20101, 20103, 20105, 20107, 20109, 20111, 20113, 20115, 20117, 20119, 20121, 20123, 20125, 20127, 20129, 20131, 20133, 20135, 20137, 20139, 20141, 20143, 20145, 20147, 20149, 20151, 20153, 20155, 20157, 20159, 20161, 20163, 20165, 20167, 20169, 20171, 20173, 20175, 20177, 20179, 20181, 20183, 20185, 20187, 20189, 20191, 20193, 20195, 20197, 20199, 20201, 20203, 20205, 20207, 20209, 20)
+
+data3$fips <- vec
+data3 <- data3 |> select(-X)
+```
+
+
+```{r}
+write.csv(data3, 'Kansas_pop_county.csv')
+```
+
